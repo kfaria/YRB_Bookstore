@@ -40,7 +40,8 @@ public class Main {
         CID = sc.nextInt();
         String user = yrb_bookstore.find_customer(CID);
 
-        while(user == null){
+        while(user == null)
+        {
             CID = sc.nextInt();
             user = yrb_bookstore.find_customer(CID);
         }
@@ -48,23 +49,27 @@ public class Main {
 
 
         //Category print + selection
-        if(user!= null){
+        if(user!= null)
+        {
 
            categories = yrb_bookstore.fetch_categories();
             System.out.println("\nSelect a category number to search a title through:");
             Iterator catIt = categories.iterator();
-            for(int i = 0 ; catIt.hasNext() ; i++){
+            for(int i = 0 ; catIt.hasNext() ; i++)
+            {
                 System.out.printf("%d: %s\n", i, catIt.next());
             }
 
             userCatInput = sc.nextInt();
 
-            while(userCatInput < 0 || userCatInput >11){
+            while(userCatInput < 0 || userCatInput >11)
+            {
                 System.out.println("Sorry, invalid category input, please try again");
                 userCatInput = sc.nextInt();
             }
 
-            switch(userCatInput) {
+            switch(userCatInput)
+            {
                 case 0 : userCat = "children";
                     break;
                 case 1 : userCat = "cooking";
@@ -97,17 +102,20 @@ public class Main {
         //Book query
         System.out.println("\nPlease enter a book title for a query");
 
-        while(userTitleInput.isEmpty()){
+        while(userTitleInput.isEmpty())
+        {
             userTitleInput = sc.nextLine();
         }
 
         book = yrb_bookstore.find_book(userTitleInput, userCat);
 
-        if (book != null){
+        if (book != null)
+        {
             Iterator bookHMIt = book.iterator();
             String output = "";
 
-            for(int i = 1 ; bookHMIt.hasNext() ; i++){
+            for(int i = 1 ; bookHMIt.hasNext() ; i++)
+            {
 
                 HashMap hmObj = (HashMap) bookHMIt.next();
                 Set set = hmObj.entrySet();
@@ -125,7 +133,8 @@ public class Main {
         }
 
 
-        while(bookPurchaseInput <=  0 || bookPurchaseInput > book.size()){
+        while(bookPurchaseInput <=  0 || bookPurchaseInput > book.size())
+        {
             System.out.println("Sorry, invalid book input, please try again");
             bookPurchaseInput = sc.nextInt();
         }
@@ -136,7 +145,8 @@ public class Main {
         //Minimum price of book
         minimumBookPriceSearch = yrb_bookstore.min_price(CID, bookTitle, userCat, bookYear);
 
-        if(minimumBookPriceSearch != null){
+        if(minimumBookPriceSearch != null)
+        {
                 minBookPrice = (double) minimumBookPriceSearch.getKey();
                 minBookClub = (String) minimumBookPriceSearch.getValue();
         }
@@ -148,16 +158,19 @@ public class Main {
         System.out.print("Would you like to purchase the book? [Y/N]: ");
         decision = sc.next();
 
-        while (!(decision.equals("Y") | decision.equals("y") | decision.equals("N") | decision.equals("n"))){
+        while (!(decision.equals("Y") | decision.equals("y") | decision.equals("N") | decision.equals("n")))
+        {
             System.out.println("Inalvid entry. Would you like to purchase the book? [Y/N]: ");
             decision = sc.next();
         }
 
-        if ((decision.equals("Y") | decision.equals("y"))){
+        if ((decision.equals("Y") | decision.equals("y")))
+        {
             System.out.print("How many books do you want?: ");
             purchaseQnty = sc.nextInt();
 
-            while(purchaseQnty < 0 ){
+            while(purchaseQnty < 0 )
+            {
                 System.out.println("Sorry, invalid input, please try again enter a positive integer");
                 purchaseQnty = sc.nextInt();
             }
@@ -165,7 +178,9 @@ public class Main {
             System.out.printf("This will cost you $%.2f\n", ( minBookPrice * purchaseQnty));
             System.out.println();
 
-        } else if ((decision.equals("N") | decision.equals("n"))){
+        } 
+        else if ((decision.equals("N") | decision.equals("n")))
+        {
             System.out.println("Ok goodbye.");
             System.exit(0);
         }
@@ -173,13 +188,15 @@ public class Main {
         System.out.print("Are you okay with this? [Y/N]: ");
         decision = sc.next();
 
-        while (!(decision.equals("Y") | decision.equals("y") | decision.equals("N") | decision.equals("n"))){
+        while (!(decision.equals("Y") | decision.equals("y") | decision.equals("N") | decision.equals("n")))
+        {
             System.out.println("Invalid entry.");
             System.out.println("Would you like to go ahead with the purchase [Y/N]: ");
             decision = sc.next();
         }
 
-        if ((decision.equals("Y") | decision.equals("y"))){
+        if ((decision.equals("Y") | decision.equals("y")))
+        {
             yrb_bookstore.insert_purchase(CID, minBookClub, bookTitle, bookYear, purchaseQnty);
         } else if ((decision.equals("N") | decision.equals("n"))){
             System.out.println("Ok goodbye.");
